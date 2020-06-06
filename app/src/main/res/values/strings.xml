@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">FamFinder</string>
     <string name="Title">FamFinder</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="enterlogin">Enter Username</string>
+    <string name="enterpassword">Enter Password</string>
+    <string name="Join_Group">Join Group</string>
+    <string name="Create_Group">Create Group</string>
 </resources>
