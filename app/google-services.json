@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "728247383997",
+    "firebase_url": "https://famfinder-b7720.firebaseio.com",
+    "project_id": "famfinder-b7720",
+    "storage_bucket": "famfinder-b7720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728247383997:android:9f808203591565717084d4",
+        "android_client_info": {
+          "package_name": "com.example.famfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728247383997-c9a9soh35s8vdhk8ebdhgru7oo4qq9b5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTaNFu6k7Ue1PLg9hNbl5tzI4Vfd7RQGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728247383997-c9a9soh35s8vdhk8ebdhgru7oo4qq9b5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

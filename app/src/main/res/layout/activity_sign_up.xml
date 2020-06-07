@@ -29,6 +29,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="200dp"
         android:hint="Enter Mail ID"
+        android:id="@+id/mailid"
         />
 
     <EditText
@@ -51,7 +52,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/login"
+        android:id="@+id/signin"
         android:text="@string/signup"
         android:layout_marginTop="400dp"
         android:layout_marginLeft="160dp"
