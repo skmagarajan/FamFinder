@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent Page = new Intent(MainActivity.this,Options.class);
-//                startActivity(Page);
+                Intent Page = new Intent(MainActivity.this,Options.class);
+                startActivity(Page);
                 db.collection("users")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

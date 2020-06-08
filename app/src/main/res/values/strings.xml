@@ -7,5 +7,7 @@
     <string name="enterpassword">Enter Password</string>
     <string name="Join_Group">Join Group</string>
     <string name="Create_Group">Create Group</string>
-    <string name = "signup">Sign Up</string>
+    <string name="signup">Sign Up</string>
+    <string name="Application">Application</string>
+    <string name="Spaces">Vacancies Avail</string>
 </resources>
