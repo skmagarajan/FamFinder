@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="140dp"
         android:layout_marginTop="250dp"
+        android:id="@+id/password"
         android:hint="@string/enterpassword"
         android:inputType="textPassword"
         />
@@ -47,6 +48,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="300dp"
         android:hint="Enter Phone Number"
+        android:id="@+id/phone"
         />
 
     <Button

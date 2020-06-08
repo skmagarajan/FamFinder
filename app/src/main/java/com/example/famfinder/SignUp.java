@@ -30,6 +30,8 @@ public class SignUp extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         final EditText mailid = (EditText) findViewById(R.id.mailid);
+        final EditText password = (EditText) findViewById(R.id.password);
+        final EditText phone = (EditText)findViewById(R.id.phone);
 
         Button signin = (Button) findViewById(R.id.signin);
 
@@ -37,12 +39,15 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create a new user with a first and last name
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
+                Map<String, String> user = new HashMap<>(); //changed the Object to String
+                String mail_id = mailid.getText().toString(); //converting to String
+                String passwd = password.getText().toString();
+                String phone_no = phone.getText().toString();
+                user.put("mail", mail_id);
+                user.put("password",passwd);
+                user.put("phone",phone_no);
 
-// Add a new document with a generated ID
+                // Add a new document with a generated ID
                 db.collection("users")
                         .add(user)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
