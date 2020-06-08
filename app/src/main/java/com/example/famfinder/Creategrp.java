@@ -12,7 +12,6 @@ public class Creategrp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creategrp);
-
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.spinner1);
 
