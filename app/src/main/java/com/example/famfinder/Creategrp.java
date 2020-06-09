@@ -30,5 +30,7 @@ public class Creategrp extends AppCompatActivity {
 
         dropdown2.setAdapter(adapter2);
 
+
+
     }
 }

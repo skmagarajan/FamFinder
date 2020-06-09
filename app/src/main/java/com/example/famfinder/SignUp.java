@@ -17,6 +17,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+class UserDetails{
+    public String phone;
+    public String password;
+    public UserDetails(String phone,String password){
+        this.password = password;
+        this.phone = phone;
+    }
+}
 public class SignUp extends AppCompatActivity {
 
     private String TAG = "SignUp Page";
@@ -39,13 +47,14 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create a new user with a first and last name
-                Map<String, String> user = new HashMap<>(); //changed the Object to String
+                Map<String, Object> user = new HashMap<>(); //changed the Object to String
                 String mail_id = mailid.getText().toString(); //converting to String
                 String passwd = password.getText().toString();
                 String phone_no = phone.getText().toString();
-                user.put("mail", mail_id);
-                user.put("password",passwd);
-                user.put("phone",phone_no);
+//                user.put("mail", mail_id);
+//                user.put("password",passwd);
+//                user.put("phone",phone_no);
+                user.put(mail_id, new UserDetails(phone_no, passwd));
 
                 // Add a new document with a generated ID
                 db.collection("users")
