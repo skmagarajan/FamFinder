@@ -18,6 +18,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "Login Page";
@@ -46,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
+                            Map<String,Object> data_received = new HashMap<>();
+                            data_received = document.getData();
+                            for(Map.Entry<String,Object> entry : data_received.entrySet()){
+                                System.out.println(entry.getKey());
+                                if (entry.getKey().toString() == "password"){
+                                    System.out.println(entry.getValue());
+                                }
+                            }
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
