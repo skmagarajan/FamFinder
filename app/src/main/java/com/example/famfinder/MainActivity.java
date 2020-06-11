@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Page);
                 String mail_id = mail.getText().toString();
 //                System.out.println(db.collection("users").getId().);
-                Log.d(TAG,"DocumentSnapshot data: " + mail_id);
+//                Log.d(TAG,"DocumentSnapshot data: " + mail_id);
                 DocumentReference docRef = db.collection("users").document(mail_id);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
