@@ -35,20 +35,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent Page = new Intent(MainActivity.this,Options.class);
                 startActivity(Page);
 //                System.out.println(db.collection("users").getId().);
-                db.collection("users")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Log.d(TAG, document.getId() + " => " + document.getData());
-                                    }
-                                } else {
-                                    Log.w(TAG, "Error getting documents.", task.getException());
-                                }
-                            }
-                        });
+//                db.collection("users")
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                                        Log.d(TAG, document.getId() + " => " + document.getData());
+//                                    }
+//                                } else {
+//                                    Log.w(TAG, "Error getting documents.", task.getException());
+//                                }
+//                            }
+//                        });
             }
         });
 
