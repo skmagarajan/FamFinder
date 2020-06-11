@@ -47,30 +47,36 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create a new user with a first and last name
-                Map<String, Object> user = new HashMap<>(); //changed the Object to String
+                Map<String, String> user = new HashMap<>(); //changed the Object to String
                 String mail_id = mailid.getText().toString(); //converting to String
                 String passwd = password.getText().toString();
                 String phone_no = phone.getText().toString();
 //                user.put("mail", mail_id);
-//                user.put("password",passwd);
-//                user.put("phone",phone_no);
-                user.put(mail_id, new UserDetails(phone_no, passwd));
-
-                // Add a new document with a generated ID
-                db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                user.put("password",passwd);
+                user.put("phone",phone_no);
+                db.collection("users").document(mail_id).set(user)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot");
                             }
                         });
+
+
+                // Add a nx ew document with a generated ID
+//                db.collection("users").add
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                            @Override
+//                            public void onSuccess(DocumentReference documentReference) {
+//                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.w(TAG, "Error adding document", e);
+//                            }
+//                        });
             }
         });
     }
