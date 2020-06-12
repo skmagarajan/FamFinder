@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,13 +34,12 @@ public class MainActivity extends AppCompatActivity {
         Button login = (Button) findViewById(R.id.login);
         final Button signup = (Button) findViewById(R.id.signup);
         final EditText mail = (EditText) findViewById(R.id.mailid);
+        final EditText password = (EditText) findViewById(R.id.password);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Page = new Intent(MainActivity.this,Options.class);
-                startActivity(Page);
                 String mail_id = mail.getText().toString();
 //                System.out.println(db.collection("users").getId().);
 //                Log.d(TAG,"DocumentSnapshot data: " + mail_id);
@@ -49,18 +49,29 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            Map<String,Object> data_received = new HashMap<>();
-                            data_received = document.getData();
-                            for(Map.Entry<String,Object> entry : data_received.entrySet()){
-                                System.out.println(entry.getKey());
-                                if (entry.getKey().toString() == "password"){
-                                    System.out.println(entry.getValue());
-                                }
-                            }
+
+//                            Map<String,Object> data_received = new HashMap<>();
+//                            data_received = document.getData();
+//                            for(Map.Entry<String,Object> entry : data_received.entrySet()){
+//                                System.out.println(entry.getKey().getClass().getName());
+//                                if (entry.getKey().toString() == "password"){
+//                                    System.out.println("s"+entry.getValue());
+//                                }
+//                            }
                             if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData().get("password"));
+                                if(document.getData().get("password").equals(password.getText().toString())){
+                                    Intent Options = new Intent(MainActivity.this,Options.class);
+                                    startActivity(Options);
+                                    Toast.makeText(getApplicationContext(),"Opening",Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(),"Please enter correct password",Toast.LENGTH_LONG).show();
+                                    Log.d(TAG, "Enter correct password");
+                                }
                             } else {
                                 Log.d(TAG, "No such document");
+                                Toast.makeText(getApplicationContext(),"Incorrect password or emailID",Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Log.d(TAG, "get failed with ", task.getException());

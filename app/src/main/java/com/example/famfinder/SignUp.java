@@ -25,6 +25,7 @@ class UserDetails{
         this.phone = phone;
     }
 }
+
 public class SignUp extends AppCompatActivity {
 
     private String TAG = "SignUp Page";
