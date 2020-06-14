@@ -16,15 +16,25 @@ public class Options extends AppCompatActivity {
 
         Button Create_Group = (Button) findViewById(R.id.Create_Group);
 
-
+        Button Join_Group = (Button) findViewById(R.id.Join_Group);
 
         Create_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Page = new Intent(Options.this,Creategrp.class);
+                Intent nextPage = new Intent(Options.this,Creategrp.class);
                 Bundle b = getIntent().getExtras();
-                Page.putExtras(b);
-                startActivity(Page);
+                nextPage.putExtras(b);
+                startActivity(nextPage);
+            }
+        });
+
+        Join_Group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextPage = new Intent(Options.this,Joingrp.class);
+                Bundle b = getIntent().getExtras();
+                nextPage.putExtras(b);
+                startActivity(nextPage);
             }
         });
     }
