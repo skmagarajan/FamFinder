@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mail_id = mail.getText().toString();
+                final String mail_id = mail.getText().toString();
 //                System.out.println(db.collection("users").getId().);
 //                Log.d(TAG,"DocumentSnapshot data: " + mail_id);
                 DocumentReference docRef = db.collection("users").document(mail_id);
@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData().get("password"));
                                 if(document.getData().get("password").equals(password.getText().toString())){
                                     Intent Options = new Intent(MainActivity.this,Options.class);
+                                    Bundle b = new Bundle();
+                                    b.putString("MailID",mail_id);
+                                    Options.putExtras(b);
                                     startActivity(Options);
                                     Toast.makeText(getApplicationContext(),"Opening",Toast.LENGTH_LONG).show();
                                 }

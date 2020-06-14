@@ -58,6 +58,9 @@ public class Creategrp extends AppCompatActivity {
                 String vacancy = dropdown2.getSelectedItem().toString();
                 Map<String, String> GRP = new HashMap<>();
                 GRP.put("vacancy",vacancy);
+                Bundle b = getIntent().getExtras();
+                String mail_id = b.getString("MailID");
+                GRP.put("head",mail_id);
                 System.out.println(_grpname.length());
                 if(_grpname.length() == 0){
                     Toast.makeText(getApplicationContext(),"Please enter group name",Toast.LENGTH_LONG).show();

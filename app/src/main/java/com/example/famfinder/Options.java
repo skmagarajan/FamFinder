@@ -16,10 +16,14 @@ public class Options extends AppCompatActivity {
 
         Button Create_Group = (Button) findViewById(R.id.Create_Group);
 
+
+
         Create_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Page = new Intent(Options.this,Creategrp.class);
+                Bundle b = getIntent().getExtras();
+                Page.putExtras(b);
                 startActivity(Page);
             }
         });
