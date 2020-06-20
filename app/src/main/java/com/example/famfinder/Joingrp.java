@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,6 +24,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+class Request{
+    public String message;
+    public String user;
+    public Request(String message,String user){
+        this.message = message;
+        this.user = user;
+    }
+}
 public class Joingrp extends AppCompatActivity {
 
     private final String TAG = "JoinGrp";
@@ -33,13 +42,10 @@ public class Joingrp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joingrp);
-
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         final ArrayList<String> grp_name = new ArrayList<>();
         final ArrayList<String> vacancy = new ArrayList<>();
         final ArrayList<String> mailID = new ArrayList<>();
-
         db.collection("Netflix")
         .get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -65,7 +71,8 @@ public class Joingrp extends AppCompatActivity {
 
                 grps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                        final Map<String,Object> request = new HashMap<>();
                         Toast.makeText(getApplicationContext(),mailID.get(position),Toast.LENGTH_LONG).show();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Joingrp.this);
                         alertDialogBuilder.setMessage("Are you sure, You wanted to make decision. If YES, Please enter your comments below:")
@@ -74,7 +81,22 @@ public class Joingrp extends AppCompatActivity {
                                         new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface arg0, int arg1) {
-                                                String task = String.valueOf(edittext.getText());
+                                                Bundle b = getIntent().getExtras();
+                                                String mail_id = b.getString("MailID"); //Getting the current user email-ID
+                                                String task = String.valueOf(edittext.getText()); //Getting the input task
+                                                request.put("request", new Request(task,mail_id));
+                                                System.out.println(mailID.get(position));
+//                                                db.collection("Users").document(mail_id)
+//                                                        .collection("Activities").document("acitivity1").set(data)
+                                                //creating a subcollection inside user.
+                                                db.collection("users").document(mailID.get(position))
+                                                        .collection("Requests").document(mail_id).set(request)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot");
+                                                    }
+                                                });
                                                 Toast.makeText(getApplicationContext(),"REQUEST SENT WITH UR COMMENTS"+task,Toast.LENGTH_LONG).show();
                                             }
                                         });

@@ -55,6 +55,7 @@ public class SignUp extends AppCompatActivity {
 //                user.put("mail", mail_id);
                 user.put("password",passwd);
                 user.put("phone",phone_no);
+//                user.put("request",null);
                 db.collection("users").document(mail_id).set(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
