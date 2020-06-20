@@ -77,8 +77,5 @@ public class Creategrp extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 }

@@ -1,12 +1,15 @@
 package com.example.famfinder;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -58,10 +61,32 @@ public class Joingrp extends AppCompatActivity {
                 grps = (ListView) findViewById(R.id.list);
                 grps.setAdapter(adapter);
 
+                final EditText edittext = new EditText(Joingrp.this);
+
                 grps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(getApplicationContext(),mailID.get(position),Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Joingrp.this);
+                        alertDialogBuilder.setMessage("Are you sure, You wanted to make decision. If YES, Please enter your comments below:")
+                        .setView(edittext);
+                                alertDialogBuilder.setPositiveButton("yes",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface arg0, int arg1) {
+                                                String task = String.valueOf(edittext.getText());
+                                                Toast.makeText(getApplicationContext(),"REQUEST SENT WITH UR COMMENTS"+task,Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+
+                        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
                 });
             } else {
@@ -69,7 +94,5 @@ public class Joingrp extends AppCompatActivity {
             }
         }
         });
-
-
     }
 }
