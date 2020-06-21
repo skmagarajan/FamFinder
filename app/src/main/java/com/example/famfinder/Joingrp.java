@@ -27,9 +27,11 @@ import java.util.Map;
 class Request{
     public String message;
     public String user;
-    public Request(String message,String user){
+    public String group_name;
+    public Request(String message,String user,String group_name){
         this.message = message;
         this.user = user;
+        this.group_name = group_name;
     }
 }
 public class Joingrp extends AppCompatActivity {
@@ -84,7 +86,7 @@ public class Joingrp extends AppCompatActivity {
                                                 Bundle b = getIntent().getExtras();
                                                 String mail_id = b.getString("MailID"); //Getting the current user email-ID
                                                 String task = String.valueOf(edittext.getText()); //Getting the input task
-                                                request.put("request", new Request(task,mail_id));
+                                                request.put("request", new Request(task,mail_id,grp_name.get(position)));
                                                 System.out.println(mailID.get(position));
 //                                                db.collection("Users").document(mail_id)
 //                                                        .collection("Activities").document("acitivity1").set(data)
