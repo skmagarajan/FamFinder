@@ -19,8 +19,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/Join_Group"
         android:text="@string/Join_Group"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="130dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Manage_group"
+        android:text="@string/Manage"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="130dp"
         />
 
 </RelativeLayout>

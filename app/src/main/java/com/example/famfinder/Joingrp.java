@@ -74,7 +74,7 @@ public class Joingrp extends AppCompatActivity {
                 grps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                        final Map<String,Object> request = new HashMap<>();
+                        final Map<String,String> request = new HashMap<>();
                         Toast.makeText(getApplicationContext(),mailID.get(position),Toast.LENGTH_LONG).show();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Joingrp.this);
                         alertDialogBuilder.setMessage("Are you sure, You wanted to make decision. If YES, Please enter your comments below:")
@@ -86,13 +86,16 @@ public class Joingrp extends AppCompatActivity {
                                                 Bundle b = getIntent().getExtras();
                                                 String mail_id = b.getString("MailID"); //Getting the current user email-ID
                                                 String task = String.valueOf(edittext.getText()); //Getting the input task
-                                                request.put("request", new Request(task,mail_id,grp_name.get(position)));
+//                                                request.put("request", new Request(task,mail_id,grp_name.get(position)));
+                                                request.put("message",task);
+                                                request.put("requester_mail",mail_id);
+                                                request.put("group_name",grp_name.get(position));
                                                 System.out.println(mailID.get(position));
 //                                                db.collection("Users").document(mail_id)
 //                                                        .collection("Activities").document("acitivity1").set(data)
                                                 //creating a subcollection inside user.
                                                 db.collection("users").document(mailID.get(position))
-                                                        .collection("Requests").document(mail_id).set(request)
+                                                        .collection("requests").document(mail_id).set(request)
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
