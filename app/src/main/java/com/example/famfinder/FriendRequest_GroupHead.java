@@ -1,6 +1,8 @@
 package com.example.famfinder;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +14,38 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FriendRequest_GroupHead extends ArrayAdapter {
     private final Activity context;
+    private final ArrayList<String> user;
+    private final ArrayList<String> message;
     private final ArrayList<String> grpName;
-    private final ArrayList<String> vacancy;
+    private final String TAG = "FriendRequest";
 
-    public FriendRequest_GroupHead(Activity context, ArrayList grpName, ArrayList vacancy){
-        super(context,R.layout.friendrequest,grpName);
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public FriendRequest_GroupHead(Activity context, ArrayList user, ArrayList message,ArrayList grpName){
+        super(context,R.layout.friendrequest,user);
 
         this.context = context;
+        this.user = user;
+        this.message = message;
         this.grpName = grpName;
-        this.vacancy = vacancy;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        final int pos = position;
+        final String UserName = user.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.friendrequest,null,true);
 
@@ -43,7 +59,35 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"ADD",Toast.LENGTH_LONG).show();
+                HashMap<String, String> new_member = new HashMap<>();
+                final int[] size = new int[1];
+                db.collection("Netflix").document(grpName.get(pos))
+                        .collection("Added_Members").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                if(task.isSuccessful()) {
+                                    size[0] = task.getResult().size();
+                                    System.out.println(TAG+" "+ size[0]);
+                                }
+                                else{
+                                    System.out.println("Not success");
+                                }
+                            }
+                        });
+                new_member.put("Count", Integer.toString(size[0]+1));
+                new_member.put("Name",UserName);
+                db.collection("Netflix").document(grpName.get(pos)).collection("Added_Members").document(UserName)
+                        .set(new_member)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot");
+                            }
+                        });
+                //db.collection("Netflix").document(grpName.get(pos)).
+                Toast.makeText(getContext(),"Added Successfully",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -56,8 +100,8 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
 
 
 
-        grp.setText(grpName.get(position));
-        vac.setText(vacancy.get(position));
+        grp.setText(user.get(position));
+        vac.setText(message.get(position));
         return rowView;
     }
 }

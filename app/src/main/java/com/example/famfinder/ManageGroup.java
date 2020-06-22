@@ -27,6 +27,7 @@ public class ManageGroup extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ArrayList<String> user = new ArrayList<>();
         final ArrayList<String> message = new ArrayList<>();
+        final ArrayList<String> grpName = new ArrayList<>();
         Bundle b = getIntent().getExtras();
         String mail_id = b.getString("MailID"); //Getting the current user email-ID
         db.collection("users").document(mail_id)
@@ -42,10 +43,11 @@ public class ManageGroup extends AppCompatActivity {
                                 details = document.getData();
                                 System.out.println(details);
                                 message.add(details.get("message").toString());
+                                grpName.add(details.get("group_name").toString());
 //                                String vvvv = details.get("head").toString();
                             }
                             System.out.println(user);
-                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message);
+                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message,grpName);
                             grps = (ListView) findViewById(R.id.list);
                             grps.setAdapter(adapter);
                         }
