@@ -7,24 +7,29 @@
     tools:context=".Options">
 
     <Button
-        android:id="@+id/Create_Group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/Create_Group" />
+        android:id="@+id/Create_Group"
+        android:text="@string/Create_Group"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="130dp" />
 
     <Button
-        android:id="@+id/Join_Group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/Join_Group" />
+        android:id="@+id/Join_Group"
+        android:text="@string/Join_Group"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="130dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Manage_group"
+        android:text="@string/Manage"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="130dp"
+        />
 
 </RelativeLayout>

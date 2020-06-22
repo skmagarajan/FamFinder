@@ -18,6 +18,8 @@ public class Options extends AppCompatActivity {
 
         Button Join_Group = (Button) findViewById(R.id.Join_Group);
 
+        Button Manage_Group = (Button) findViewById(R.id.Manage_group);
+
         Create_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +34,16 @@ public class Options extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent nextPage = new Intent(Options.this,Joingrp.class);
+                Bundle b = getIntent().getExtras();
+                nextPage.putExtras(b);
+                startActivity(nextPage);
+            }
+        });
+
+        Manage_Group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextPage = new Intent(Options.this,ManageGroup.class);
                 Bundle b = getIntent().getExtras();
                 nextPage.putExtras(b);
                 startActivity(nextPage);
