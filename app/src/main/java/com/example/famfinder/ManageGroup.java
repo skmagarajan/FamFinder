@@ -45,7 +45,7 @@ public class ManageGroup extends AppCompatActivity {
 //                                String vvvv = details.get("head").toString();
                             }
                             System.out.println(user);
-                            GroupNameListAdapter adapter=new GroupNameListAdapter(ManageGroup.this,user,message);
+                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message);
                             grps = (ListView) findViewById(R.id.list);
                             grps.setAdapter(adapter);
                         }
