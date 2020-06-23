@@ -44,9 +44,12 @@ public class Options extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent nextPage = new Intent(Options.this,ManageGroup.class);
+//                Intent friend_req_page = new Intent(Options.this,FriendRequest_GroupHead.class);
                 Bundle b = getIntent().getExtras();
                 nextPage.putExtras(b);
                 startActivity(nextPage);
+//                friend_req_page.putExtras(b);
+//                startActivity(friend_req_page);
             }
         });
     }

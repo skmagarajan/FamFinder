@@ -29,8 +29,8 @@ public class ManageGroup extends AppCompatActivity {
         final ArrayList<String> message = new ArrayList<>();
         final ArrayList<String> grpName = new ArrayList<>();
         Bundle b = getIntent().getExtras();
-        String mail_id = b.getString("MailID"); //Getting the current user email-ID
-        db.collection("users").document(mail_id)
+        final String owner_mail_id = b.getString("MailID"); //Getting the current user email-ID
+        db.collection("users").document(owner_mail_id)
                 .collection("requests").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -47,7 +47,7 @@ public class ManageGroup extends AppCompatActivity {
 //                                String vvvv = details.get("head").toString();
                             }
                             System.out.println(user);
-                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message,grpName);
+                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message,grpName,owner_mail_id);
                             grps = (ListView) findViewById(R.id.list);
                             grps.setAdapter(adapter);
                         }
