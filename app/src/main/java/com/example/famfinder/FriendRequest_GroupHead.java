@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
     private final String owner;
     private final String TAG = "FriendRequest";
 
+    private Button deleteBtn;
 
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -50,17 +52,17 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable final View convertView, @NonNull ViewGroup parent) {
         final int pos = position;
         final String UserName = user.get(position);
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.friendrequest,null,true);
+        final View rowView = inflater.inflate(R.layout.friendrequest,null,true);
 
         TextView grp = (TextView) rowView.findViewById(R.id.grp_name);
         TextView vac = (TextView) rowView.findViewById(R.id.vacancy);
 
         //Handle buttons and add onClickListeners
-        Button deleteBtn = (Button)rowView.findViewById(R.id.delete_btn);
+        deleteBtn = (Button)rowView.findViewById(R.id.delete_btn);
         Button addBtn = (Button)rowView.findViewById(R.id.add_btn);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,16 +103,18 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG,"Deleted Successful");
+                        rowView.setVisibility(rowView.GONE);//Remove notification from frontend
                     }
                 });
-               clear(); //Clears the entire screen
+
+                //clear(); //Clears the entire screen
             }
         });
 
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 System.out.println(UserName);
                 db.collection("users").document(owner).collection("requests")
                         .document(UserName)
@@ -118,10 +122,11 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG,"Deleted Successful");
+                        rowView.setVisibility(rowView.GONE);//Remove notification from frontend
                     }
                 });
                 Toast.makeText(getContext(),"DELETE",Toast.LENGTH_LONG).show();
-                clear(); //clears the entire screen
+                //clear(); //clears the entire screen
             }
         });
         grp.setText(user.get(position));

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ public class ManageGroup extends AppCompatActivity {
 
     private final String TAG = "Manage_Group";
     ListView grps;
+    FriendRequest_GroupHead adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class ManageGroup extends AppCompatActivity {
 //                                String vvvv = details.get("head").toString();
                             }
                             System.out.println(user);
-                            FriendRequest_GroupHead adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message,grpName,owner_mail_id);
+                            adapter=new FriendRequest_GroupHead(ManageGroup.this,user,message,grpName,owner_mail_id);
                             grps = (ListView) findViewById(R.id.list);
                             grps.setAdapter(adapter);
                         }
