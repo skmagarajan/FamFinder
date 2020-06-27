@@ -73,6 +73,15 @@ public class Creategrp extends AppCompatActivity {
                                     Log.d(TAG, "DocumentSnapshot");
                                 }
                             });
+
+                    db.collection("users").document(mail_id).collection("GroupsOwned")
+                            .document(_grpname).set(GRP)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot");
+                                }
+                            });
                     Toast.makeText(getApplicationContext(),"Hurray !!! Group created successfully",Toast.LENGTH_LONG).show();
                 }
             }
