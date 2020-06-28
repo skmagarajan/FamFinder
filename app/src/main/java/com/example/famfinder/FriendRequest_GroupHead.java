@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
@@ -68,27 +69,12 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> new_member = new HashMap<>();
-                final int[] size = new int[1];
-                db.collection("Netflix").document(grpName.get(pos))
-                        .collection("Added_Members").get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                                if(task.isSuccessful()) {
-                                    size[0] = task.getResult().size();
-                                    System.out.println(TAG+" "+ size[0]);
-                                }
-                                else{
-                                    System.out.println("Not success");
-                                }
-                            }
-                        });
-                new_member.put("Count", Integer.toString(size[0]+1));
-                new_member.put("Name",UserName);
-                db.collection("Netflix").document(grpName.get(pos)).collection("Added_Members").document(UserName)
-                        .set(new_member)
+                HashMap<String, String> GRP = new HashMap<>();
+                GRP.put("GroupName",grpName.get(pos));
+                GRP.put("head",grpName.get(pos));
+                GRP.put("vacancy",grpName.get(pos));
+                db.collection("users").document(UserName).collection("GroupsOwned").document(grpName.get(pos))
+                        .set(GRP, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

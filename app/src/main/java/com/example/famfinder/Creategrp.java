@@ -2,6 +2,8 @@ package com.example.famfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -83,6 +85,11 @@ public class Creategrp extends AppCompatActivity {
                                 }
                             });
                     Toast.makeText(getApplicationContext(),"Hurray !!! Group created successfully",Toast.LENGTH_LONG).show();
+                    Intent Move_Back = new Intent(Creategrp.this,Options.class);
+                    Move_Back.putExtras(b);
+                    Move_Back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//Clearing backstack activities
+                    startActivity(Move_Back);
+                    finish();
                 }
             }
         });
