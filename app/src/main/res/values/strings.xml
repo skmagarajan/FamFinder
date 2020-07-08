@@ -5,10 +5,11 @@
     <string name="password">Password</string>
     <string name="enterlogin">Enter Username</string>
     <string name="enterpassword">Enter Password</string>
-    <string name="Join_Group">Join Group</string>
-    <string name="Create_Group">Create Group</string>
+    <string name="Join_Group">Join\nGroup</string>
+    <string name="Create_Group1">Create\nGroup</string>
+    <string name="Create_Group2">Create Group</string>
     <string name="signup">Sign Up</string>
     <string name="Application">Application</string>
     <string name="Spaces">Vacancies Avail</string>
-    <string name="Manage">Manage</string>
+    <string name="Manage">Requests</string>
 </resources>

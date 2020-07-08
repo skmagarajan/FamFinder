@@ -40,10 +40,11 @@ public class ManageGroup extends AppCompatActivity {
                         System.out.println("Here");
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                user.add(document.getId());
+
                                 Map<String,Object> details = new HashMap<>();
                                 details = document.getData();
                                 System.out.println(details);
+                                user.add(details.get("requester_mail").toString());
                                 message.add(details.get("message").toString());
                                 grpName.add(details.get("group_name").toString());
 //                                String vvvv = details.get("head").toString();

@@ -95,7 +95,7 @@ public class Joingrp extends AppCompatActivity {
 //                                                        .collection("Activities").document("acitivity1").set(data)
                                                 //creating a subcollection inside user.
                                                 db.collection("users").document(mailID.get(position))
-                                                        .collection("requests").document(mail_id).set(request)
+                                                        .collection("requests").document(grp_name.get(position)).set(request)
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {

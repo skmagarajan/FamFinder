@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,37 +35,52 @@ public class Options extends AppCompatActivity {
 
     String TAG = "Options.JAVA";
 
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        Button Create_Group = (Button) findViewById(R.id.Create_Group);
+        ImageButton Create_Group = (ImageButton) findViewById(R.id.Create_Group);
 
-        Button Join_Group = (Button) findViewById(R.id.Join_Group);
+        ImageButton Join_Group = (ImageButton) findViewById(R.id.Join_Group);
 
         Button Manage_Group = (Button) findViewById(R.id.Manage_group);
+
+        TextView create = (TextView) findViewById(R.id.create_text);
+
+        TextView join = (TextView) findViewById(R.id.join_text);
 
         Bundle b = getIntent().getExtras();
         current_user = b.getString("MailID");
 
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                create();
+            }
+        });
+
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                join();
+            }
+        });
+
         Create_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextPage = new Intent(Options.this,Creategrp.class);
-                Bundle b = getIntent().getExtras();
-                nextPage.putExtras(b);
-                startActivity(nextPage);
+                create();
             }
         });
+
 
         Join_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextPage = new Intent(Options.this,Joingrp.class);
-                Bundle b = getIntent().getExtras();
-                nextPage.putExtras(b);
-                startActivity(nextPage);
+                join();
             }
         });
 
@@ -83,7 +99,7 @@ public class Options extends AppCompatActivity {
 
         //Groups Custom ListView
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         final ArrayList<String> grp_name = new ArrayList<>();
         final ArrayList<String> vacancy = new ArrayList<>();
         final ArrayList<String> mailID = new ArrayList<>();
@@ -114,13 +130,33 @@ public class Options extends AppCompatActivity {
                         }
                     }
                 });
+
+    }
+
+
+    public void create(){
+        Intent nextPage = new Intent(Options.this,Creategrp.class);
+        Bundle b = getIntent().getExtras();
+        nextPage.putExtras(b);
+        startActivity(nextPage);
+    }
+
+    public void join(){
+        Intent nextPage = new Intent(Options.this,Joingrp.class);
+        Bundle b = getIntent().getExtras();
+        nextPage.putExtras(b);
+        startActivity(nextPage);
     }
 }
+
+
 
 class GroupName extends ArrayAdapter {
     private final Activity context;
     private final ArrayList<String> grpName;
 //    private final ArrayList<String> vacancy;
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public GroupName(Activity context, ArrayList grpName) {
         super(context, R.layout.join_grp_list, grpName);
 
@@ -140,6 +176,19 @@ class GroupName extends ArrayAdapter {
 
         grp.setText(grpName.get(position));
 //        vac.setText(vacancy.get(position));
+//        db.collection("users").document(current_user).collection("requests")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            if(!task.getResult().isEmpty()){
+//                                TextView red_dot = (TextView) findViewById(R.id.badge_textView);
+//                                red_dot.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//                    }
+//                });
         return rowView;
     }
 }

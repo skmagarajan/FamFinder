@@ -30,6 +30,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="200dp"
         android:hint="@string/enterlogin"
+        android:imeOptions="actionDone"
         />
 
     <TextView
@@ -48,6 +49,7 @@
         android:layout_marginTop="350dp"
         android:hint="@string/enterpassword"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
         />
 
     <Button

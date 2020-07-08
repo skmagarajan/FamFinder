@@ -71,8 +71,7 @@ public class FriendRequest_GroupHead extends ArrayAdapter {
             public void onClick(View v) {
                 HashMap<String, String> GRP = new HashMap<>();
                 GRP.put("GroupName",grpName.get(pos));
-                GRP.put("head",grpName.get(pos));
-                GRP.put("vacancy",grpName.get(pos));
+                GRP.put("head",owner);
                 db.collection("users").document(UserName).collection("GroupsOwned").document(grpName.get(pos))
                         .set(GRP, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
