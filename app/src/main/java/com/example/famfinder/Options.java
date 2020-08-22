@@ -2,13 +2,18 @@ package com.example.famfinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,9 +21,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -27,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Options extends AppCompatActivity {
+public class Options extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String current_user ;//Contains UserName
 
@@ -41,6 +48,17 @@ public class Options extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+
+        /*****************ToolBar*********************/
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        /*****************Setting Toolbar with hamburger*********************/
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.activity_main_drawer_open, R.string.activity_main_drawer_close);
+        toggle.syncState();
+        /*****************Setting Listener on Navigation Bar*********************/
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ImageButton Create_Group = (ImageButton) findViewById(R.id.Create_Group);
 
@@ -146,6 +164,24 @@ public class Options extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         nextPage.putExtras(b);
         startActivity(nextPage);
+    }
+
+    /*****************Click events on Hamburger option !*********************/
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        // Handle navigation view item clicks here.
+        switch (item.getItemId()) {
+            case R.id.sign_out: {
+                Intent Options = new Intent(Options.this,MainActivity.class);
+                startActivity(Options);
+                Toast.makeText(getApplicationContext(),"Closing Application",Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+        //close navigation drawer
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
 
