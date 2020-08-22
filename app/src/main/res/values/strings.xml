@@ -12,4 +12,6 @@
     <string name="Application">Application</string>
     <string name="Spaces">Vacancies Avail</string>
     <string name="Manage">Requests</string>
+    <string name="activity_main_drawer_open">A</string>
+    <string name="activity_main_drawer_close">B</string>
 </resources>

@@ -1,15 +1,21 @@
 package com.example.famfinder;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -19,16 +25,12 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final int RC_SIGN_IN = 0;
     private String TAG = "Login Page";
@@ -75,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*****************ToolBar*********************/
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        /*****************Setting Toolbar with hamburger*********************/
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.activity_main_drawer_open, R.string.activity_main_drawer_close);
+        toggle.syncState();
+        /*****************Setting Listener on Navigation Bar*********************/
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         Button login = (Button) findViewById(R.id.login);
         final Button signup = (Button) findViewById(R.id.signup);
@@ -169,5 +181,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Page);
             }
         });
+
+    }
+
+    /*****************Click events on Hamburger option !*********************/
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        // Handle navigation view item clicks here.
+        switch (item.getItemId()) {
+            case R.id.sign_out: {
+                Intent Options = new Intent(MainActivity.this,Options.class);
+                Bundle b = new Bundle();
+                b.putString("MailID","mail_id");
+                Options.putExtras(b);
+                startActivity(Options);
+                Toast.makeText(getApplicationContext(),"Opening",Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+        //close navigation drawer
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
