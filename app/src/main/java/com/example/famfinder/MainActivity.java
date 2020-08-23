@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             System.out.println("Success");
             Intent Options = new Intent(MainActivity.this,Options.class);
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            String personEmail = acct.getEmail();
             Bundle b = new Bundle();
-            b.putString("MailID","Saravanan");
+            b.putString("MailID",personEmail);
             Options.putExtras(b);
             startActivity(Options);
             Toast.makeText(getApplicationContext(),"Opening",Toast.LENGTH_LONG).show();

@@ -23,7 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +49,25 @@ public class Options extends AppCompatActivity implements NavigationView.OnNavig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            System.out.println(personName);
+            Map<String, String> user = new HashMap<>(); //changed the Object to String
+            user.put("Name",personGivenName);
+            db.collection("users").document(personEmail).set(user)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot");
+                        }
+                    });
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
@@ -61,40 +83,30 @@ public class Options extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
         ImageButton Create_Group = (ImageButton) findViewById(R.id.Create_Group);
-
         ImageButton Join_Group = (ImageButton) findViewById(R.id.Join_Group);
-
         Button Manage_Group = (Button) findViewById(R.id.Manage_group);
-
         TextView create = (TextView) findViewById(R.id.create_text);
-
         TextView join = (TextView) findViewById(R.id.join_text);
-
         Bundle b = getIntent().getExtras();
         current_user = b.getString("MailID");
-
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 create();
             }
         });
-
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 join();
             }
         });
-
         Create_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 create();
             }
         });
-
-
         Join_Group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,12 +144,6 @@ public class Options extends AppCompatActivity implements NavigationView.OnNavig
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 grp_name.add(document.getId());
-//                                Map<String, Object> x = new HashMap<>();
-//                                x = document.getData();
-//                                String vvv = x.get("vacancy").toString();
-//                                String vvvv = x.get("head").toString();
-//                                vacancy.add(vvv);
-//                                mailID.add(vvvv);
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                             Log.w(TAG, grp_name.toString());
